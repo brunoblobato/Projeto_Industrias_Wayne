@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Gerenciar Itens</h1>
+    <a href="{{ url_for('items.add_item') }}" class="button is-primary">Adicionar Novo Item</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Imagem</th>
+                <th>Nome</th>
+                <th>Categoria</th>
+                <th>Quantidade</th>
+                <th>Status</th>
+                <th>Usuário Atual</th>
+                <th>Último Empréstimo</th>
+                <th>Quantidade de Usos</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>
+                    {% if item.image_url %}
+                        <img src="{{ url_for('static', filename=item.image_url) }}" alt="Imagem de {{ item.name }}" style="width: 50px; height: 50px;">
+                    {% else %}
+                        <span>Sem imagem</span>
+                    {% endif %}
+                </td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.category }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.status }}</td>
+                <td>{{ item.current_user if item.current_user else 'Não emprestado' }}</td>
+                <td>{{ item.last_borrowed.strftime('%d/%m/%Y %H:%M:%S') if item.last_borrowed else 'Nunca' }}</td>
+                <td>{{ item.times_used }}</td>
+                <td>
+                    {% if current_user.is_authenticated and current_user.role == 'admin' %}
+                        <a href="{{ url_for('items.edit_item', item_id=item.id) }}" class="button is-warning">Editar</a>
+                        <form id="delete-form-{{ item.id }}" action="{{ url_for('items.delete_item', item_id=item.id) }}" method="POST" style="display: none;">
+                            <!-- Inclua o token CSRF, se necessário -->
+                        </form>
+                        <button onclick="showConfirmationModal(this)" data-item-id="{{ item.id }}" class="button is-danger">Excluir</button>
+                    {% endif %}
+                   
+                    <a href="{{ url_for('items.return_equipment', item_id=item.id) }}" class="button is-success">Devolver</a>
+                    <a href="{{ url_for('items.use_equipment', item_id=item.id) }}" class="button is-info">Usar</a>
+                </td>
+                <td>
+                    <ul>
+                        {% for usage in item.usages %}
+                            <li>{{ usage.usage_date.strftime('%d/%m/%Y %H:%M:%S') }} - {{ usage.action }} - {{ usage.status }}{% if usage.return_date %} - Devolvido em {{ usage.return_date.strftime('%d/%m/%Y %H:%M:%S') }}{% endif %}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class="alert-container">
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function showConfirmationModal(button) {
+            const itemId = button.getAttribute("data-item-id");
+
+            Swal.fire({
+                title: "Tem certeza?",
+                text: "Essa ação não pode ser desfeita!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Sim, excluir!",
+                cancelButtonText: "Cancelar",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Se confirmado, submete o formulário
+                    document.getElementById(`delete-form-${itemId}`).submit();
+                }
+            });
+
+            return false; // Impede qualquer ação adicional no clique
+        }
+    </script>
+{% endblock %}

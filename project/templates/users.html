@@ -1,0 +1,163 @@
+{% extends "base.html" %} {% block content %}
+<div class="column is-8 is-offset-2">
+  <h3 class="title">Gestão de Usuários</h3>
+  <div class="box">
+    {% with messages = get_flashed_messages() %} {% if messages %}
+    <div class="notification is-danger">
+      {{ messages[0] }}.
+      <!-- # Link de redirecionamento, edite a seguir: Go to <a href="{{ url_for('auth.login') }}">login page</a>. -->
+    </div>
+    {% endif %} {% endwith %}
+    <!-- Listagem de Usuários -->
+    <div class="box">
+      <h4 class="subtitle">Lista de Usuários</h4>
+      <table class="table is-fullwidth">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Papel</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in users %}
+          <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.role }}</td>
+            <td>
+              {% if user.is_active %}
+              <span class="tag is-success">Ativo</span>
+              {% else %}
+              <span class="tag is-danger">Inativo</span>
+              {% endif %}
+            </td>
+            <td>
+              <a
+                href="{{ url_for('users.edit_user', user_id=user.id) }}"
+                class="button is-small is-warning"
+                >Editar</a
+              >
+              {% if current_user.is_authenticated and current_user.role ==
+              'admin' %} {% if user.email != 'admin@admin.com' %}
+              <form
+                action="{{ url_for('users.toggle_user_status', user_id=user.id) }}"
+                method="POST"
+                style="display: inline"
+              >
+                <button class="button is-small is-info">
+                  {% if user.is_active %}Desativar{% else %}Ativar{% endif %}
+                </button>
+              </form>
+              <form
+                id="delete-user-form-{{ user.id }}"
+                action="{{ url_for('users.delete_user', user_id=user.id) }}"
+                method="POST"
+                style="display: inline"
+              >
+                <button
+                  type="button"
+                  class="button is-small is-danger"
+                  data-user-id="{{ user.id }}"
+                  onclick="showConfirmationModal(this)"
+                >
+                  Excluir
+                </button>
+              </form>
+              {% endif %} {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="column is-25 is-offset-0">
+    <h3 class="title">Sign Up</h3>
+    <div class="box">
+      <form method="POST" action="/signup">
+        <div class="field">
+          <div class="control">
+            <input
+              class="input is-large"
+              type="email"
+              name="email"
+              placeholder="Email"
+              autofocus=""
+            />
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <input
+              class="input is-large"
+              type="text"
+              name="name"
+              placeholder="Name"
+              autofocus=""
+            />
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <input
+              class="input is-large"
+              type="password"
+              name="password"
+              placeholder="Password"
+            />
+          </div>
+        </div>
+
+        <!-- Campo para selecionar o papel (role) -->
+        <div class="field">
+          <label class="label">Tipo de usuário</label>
+          <div class="control">
+            <div class="select is-large is-fullwidth">
+              <select name="role">
+                <option value="employee">Funcionário</option>
+                <option value="manager">Gerente</option>
+                <option value="admin">Administrador</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <button class="button is-block is-info is-large is-fullwidth">
+          Sign Up
+        </button>
+      </form>
+    </div>
+  </div>
+  <script>
+    function showConfirmationModal(button) {
+      const userId = button.getAttribute("data-user-id");
+
+      Swal.fire({
+        title: "Tem certeza?",
+        text: "Essa ação não pode ser desfeita!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Sim, excluir!",
+        cancelButtonText: "Cancelar",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Se confirmado, submete o formulário
+          document.getElementById(`delete-user-form-${userId}`).submit();
+        }
+      });
+      return false; // Impede o envio imediato do formulário
+    }
+  </script>
+
+  {% endblock %}
+</div>

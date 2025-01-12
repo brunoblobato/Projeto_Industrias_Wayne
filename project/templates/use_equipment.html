@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Usar Equipamento</h1>
+
+    <!-- Exibindo a mensagem de erro se houver -->
+    {% if alert_message %}
+        <script>
+            // Exibindo o alerta com SweetAlert2
+            Swal.fire({
+                title: 'Erro!',
+                text: '{{ alert_message }}',
+                icon: '{{ alert_type }}',  // "error" para o tipo de mensagem
+                confirmButtonText: 'OK'
+            }).then(() => {
+                // Redireciona para a página de gerenciamento de itens após o alerta
+                window.location.href = "{{ url_for('items.manage_items') }}";
+            });
+        </script>
+    {% endif %}
+
+    <!-- Formulário para usar o equipamento -->
+    <form method="POST">
+        <div class="field">
+            <label class="label">Ação</label>
+            <div class="control">
+                <input class="input" type="text" name="action" required>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Nome da Missão</label>
+            <div class="control">
+                <input class="input" type="text" name="mission_name" required>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Descrição da Missão</label>
+            <div class="control">
+                <textarea class="textarea" name="mission_description" required></textarea>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Data de Início</label>
+            <div class="control">
+                <input class="input" type="datetime-local" name="start_date" required>
+            </div>
+        </div>
+
+        <div class="field">
+            <div class="control">
+                <button class="button is-primary" type="submit">Usar Equipamento</button>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}

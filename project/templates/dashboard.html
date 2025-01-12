@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="title">Dashboard de Gestão de Equipamentos</h1>
+
+<div class="dashboard-summary">
+    <div class="stat-box">
+        <h3>Total de Itens</h3>
+        <p>{{ total_items }}</p>
+    </div>
+
+    <div class="stat-box">
+        <h3>Itens em Uso</h3>
+        <p>{{ used_items }}</p>
+    </div>
+</div>
+
+<!-- Gráfico de Quantidade de Itens -->
+<div class="chart-container">
+    <h3>Quantidade de Itens (Disponíveis x Em Uso)</h3>
+    <canvas id="itemStatusChart"></canvas>
+</div>
+
+<!-- Histórico de Uso -->
+<div class="usage-history">
+    <h3>Histórico de Uso Recentes</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Equipamento</th>
+                <th>Usuário</th>
+                <th>Data de Uso</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for usage in usage_history %}
+            <tr>
+                <td>{{ usage.equipment.name }}</td>
+                <td>{{ usage.user.name }}</td>
+                <td>{{ usage.usage_date.strftime('%d/%m/%Y %H:%M:%S') }}</td>
+                <td>{{ usage.action }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Gráfico de Tempo de Uso -->
+<div class="chart-container">
+    <h3>Tempo de Uso por Equipamento</h3>
+    <canvas id="usageTimeChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var itemStatusCtx = document.getElementById('itemStatusChart').getContext('2d');
+    var usageTimeCtx = document.getElementById('usageTimeChart').getContext('2d');
+
+    var itemStatusData = {
+        labels: ['Disponíveis', 'Em Uso'],
+        datasets: [{
+            label: 'Status dos Itens',
+            data: [{{ available_items }}, {{ used_items }}],
+            backgroundColor: ['#4CAF50', '#FF5722'],
+        }]
+    };
+
+    var usageTimeData = {
+        labels: [{% for mission in missions %}'{{ mission.name }}',{% endfor %}],
+        datasets: [{
+            label: 'Tempo de Uso (em dias)',
+            data: [{% for usage in usage_time %}{{ usage.total_time }},{% endfor %}],
+            backgroundColor: '#3b8bfa',
+        }]
+    };
+
+    var itemStatusChart = new Chart(itemStatusCtx, {
+        type: 'pie',
+        data: itemStatusData,
+    });
+
+    var usageTimeChart = new Chart(usageTimeCtx, {
+        type: 'bar',
+        data: usageTimeData,
+    });
+</script>
+
+{% endblock %}

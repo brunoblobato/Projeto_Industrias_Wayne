@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="column is-6 is-offset-3">
+    <h3 class="title">Editar Usuário</h3>
+    <form method="POST" action="{{ url_for('users.edit_user', user_id=user.id) }}">
+        <div class="field">
+            <label class="label">Nome</label>
+            <div class="control">
+                <input class="input" type="text" name="name" value="{{ user.name }}" required>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Email</label>
+            <div class="control">
+                <input class="input" type="email" name="email" value="{{ user.email }}" required>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Senha</label>
+            <div class="control">
+                <input class="input" type="password" name="password" value="{{ user.password }}" required>
+            </div>
+        </div>
+
+        {% if current_user.is_authenticated and current_user.role == 'admin' %}
+            {% if user.email != 'admin@admin.com' %}
+            <div class="field">
+                <label class="label">Papel</label>
+                <div class="control">
+                    <div class="select is-fullwidth">
+                        <select name="role">
+                            <option value="employee" {% if user.role == 'employee' %}selected{% endif %}>Funcionário</option>
+                            <option value="manager" {% if user.role == 'manager' %}selected{% endif %}>Gerente</option>
+                            <option value="admin" {% if user.role == 'admin' %}selected{% endif %}>Administrador</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        {% endif %}
+        <button class="button is-primary">Salvar Alterações</button>
+        <a href="{{ url_for('users.list_users') }}" class="button is-light">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

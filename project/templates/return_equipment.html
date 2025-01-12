@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Devolver Equipamento</h1>
+
+    <!-- Exibindo a mensagem de erro, caso exista -->
+    {% if alert_message %}
+        <script>
+            // Exibindo o alerta com SweetAlert2
+            Swal.fire({
+                title: 'Erro!',
+                text: '{{ alert_message }}',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                // Redireciona para a página de gerenciamento de itens após o alerta
+                window.location.href = "{{ url_for('items.manage_items') }}";
+            });
+        </script>
+    {% endif %}
+
+    <!-- Formulário para devolver o equipamento -->
+    <form method="POST">
+        <div class="field">
+            <label class="label">Observação (opcional)</label>
+            <div class="control">
+                <textarea class="textarea" name="reason_for_return" placeholder="Digite uma observação para a devolução (se necessário)"></textarea>
+            </div>
+        </div>
+
+        <div class="field">
+            <div class="control">
+                <button class="button is-primary" type="submit">Devolver Equipamento</button>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}
