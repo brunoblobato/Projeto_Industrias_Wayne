@@ -1,0 +1,1362 @@
+/* Fonte e cores */
+body {
+  margin: 0;
+  font-family: 'UnifrakturCook', serif;
+  background-color: #000;
+  color: #fff;
+  background-image: url('/static/images/gotham-city.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.8);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.logo img {
+  height: 30px;
+}
+
+.menu {
+  display: flex;
+  gap: 20px;
+  flex: 0 0 auto;
+}
+
+.menu-item {
+  text-decoration: none;
+  color: #ffc107;
+  font-size: 18px;
+  transition: color 0.3s;
+}
+
+.menu-item:hover {
+  color: #fff;
+}
+
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: #ffc107;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.menu.active {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.content {
+  padding-top: 100px;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.9);
+  color: #fff;
+  font-size: 16px;
+  position: fixed; /* Fixa o rodapé */
+  bottom: 0; /* Posiciona no fim da página */
+  left: 0;
+  width: 100%; /* Garante que o rodapé ocupe toda a largura */
+  z-index: 10; /* Mantém o rodapé acima de outros elementos */
+}
+
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .menu {
+      display: none;
+      flex-direction: column;
+      text-align: left;
+      background-color: rgba(0, 0, 0, 0.9);
+      padding: 10px 0;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      padding-left: 20px;
+  }
+
+  .mobile-menu-toggle {
+      display: block;
+  }
+
+  body {
+    background-size: cover; /* A imagem vai cobrir toda a tela */
+    background-position: center;
+    background-attachment: scroll; /* Garante que a imagem se mova com o conteúdo */
+    height: 100vh; /* Garante que a imagem ocupe toda a altura da tela no mobile */
+  }
+}
+
+.btn {
+  background-color: #ffc107;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn.hovered {
+  background-color: #e0a800;  /* Mudando a cor de fundo ao passar o mouse */
+}
+
+/* Container do login */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+  text-align: center; /* Garante que o conteúdo da página fique centralizado */
+}
+
+/* Título */
+.login-title {
+  font-size: 2rem;
+  color: #ffc107; /* Amarelo */
+  margin-bottom: 20px;
+}
+
+/* Container do login */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+  text-align: center; /* Garante que o conteúdo da página fique centralizado */
+}
+
+/* Título */
+.login-title {
+  font-size: 2.5rem;
+  color: #ffc107; /* Amarelo */
+  margin-bottom: 20px;
+}
+
+/* Caixa de login (ajustada para mais vertical) */
+.login-box {
+  background-color: rgba(0, 0, 0, 0.5); /* Fundo transparente */
+  border-radius: 8px;
+  padding: 40px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+  width: 100%;
+  max-width: 300px; /* Reduzindo a largura para ser mais estreita */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centraliza os itens dentro da caixa */
+  justify-content: center;
+  text-align: center; /* Garante o texto centralizado */
+}
+
+/* Estilo dos inputs */
+.custom-input {
+  background-color: rgba(255, 255, 255, 0.1); /* Fundo transparente */
+  color: #fff;
+  border: 1px solid #ccc;
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 5px;
+  width: 120%; /* Ajuste a largura aqui para 100% ou valores específicos */
+  max-width: 280px; /* Limita o tamanho máximo do input */
+  font-size: 1.1rem;
+  margin-left: -30px; /* Alinha à direita, remova ou ajuste conforme necessário */
+  margin-right: auto; /* Centraliza ou alinha à esquerda */
+  /* Se você quiser o input à esquerda ou à direita, use valores diferentes para margin-left e margin-right */
+}
+
+/* Input em foco */
+.custom-input:focus {
+  border-color: #ffc107; /* Amarelo quando em foco */
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Estilo do checkbox */
+.custom-checkbox {
+  color: #fff;
+  margin-top: 10px;
+}
+
+/* Espaçamento entre o checkbox e o botão */
+.remember-field {
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+}
+
+/* Botão de login */
+.custom-button {
+  background-color: #ffc107; /* Amarelo */
+  color: #000;
+  width: 100%;
+  max-width: 280px; /* Limita a largura do botão */
+  padding: 10px;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.custom-button:hover {
+  background-color: #ffd455; /* Tom mais claro de amarelo */
+}
+
+/* Estilo da notificação de erro */
+.notification.is-danger {
+  background-color: #ff4444; /* Vermelho para mensagens de erro */
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+
+/* Ajuste no container geral do dashboard para garantir que ele fique dentro da página */
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.7); /* Fundo transparente */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+  width: 100%;
+  max-width: 1200px; /* Ajuste a largura máxima */
+  margin: 100px auto; /* Aumenta a margem superior para afastar mais do header */
+  min-height: calc(100vh - 100px); /* Garante que o conteúdo ocupe o restante da altura da página após o header */
+}
+
+/* Título */
+.dashboard-title {
+  font-size: 2rem;
+  color: #ffc107; /* Amarelo */
+  margin-bottom: 10px;
+}
+
+/* Caixa de Estatísticas */
+.dashboard-summary {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.stat-box {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  width: 250px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+}
+
+.stat-box h3 {
+  margin-bottom: 10px;
+}
+
+.stat-box p {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Tabelas de Histórico de Uso */
+.usage-history {
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  width: 100%;
+  max-width: 1000px;
+  margin-bottom: 40px;
+}
+
+.usage-history table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.usage-history th, .usage-history td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.usage-history th {
+  background-color: #333;
+  color: #ffc107;
+}
+
+.usage-history tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Gráficos */
+.chart-container {
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  width: 100%;
+  max-width: 1000px;
+  margin-bottom: 40px;
+}
+
+.chart-container canvas {
+  width: 100% !important; /* Garantir que os gráficos ocupem toda a largura */
+  height: auto !important;
+}
+
+/* Media Queries para Mobile */
+@media screen and (max-width: 768px) {
+  /* Ajuste do Container Principal */
+  .dashboard-container {
+    padding: 20px; /* Adiciona padding para garantir espaçamento nas bordas */
+    margin: 0 auto; /* Centraliza o conteúdo */
+    width: 100%;
+    box-sizing: border-box; /* Garante que padding não altere a largura */
+    margin: 100px auto; /* Aumenta a margem superior para afastar mais do header */
+    min-height: calc(100vh - 100px); /* Garante que o conteúdo ocupe o restante da altura da página após o header */
+  }
+
+  /* Ajuste das Estatísticas */
+  .dashboard-summary {
+    flex-direction: column; /* Empilha as caixas de estatísticas no mobile */
+    align-items: center;
+    margin-bottom: 30px;
+  }
+
+  .stat-box {
+    width: 90%; /* Ajusta a largura das caixas para 90% da tela */
+    max-width: 300px; /* Limita a largura máxima */
+    margin-bottom: 20px;
+    padding: 15px; /* Garantir que o padding esteja dentro das dimensões */
+    box-sizing: border-box;
+  }
+
+  /* Ajuste dos Gráficos */
+  .chart-container {
+    width: 100%; /* Ajusta a largura do gráfico para ocupar toda a tela */
+    margin-top: 20px;
+    padding: 0 10px; /* Adiciona espaçamento nas laterais */
+    box-sizing: border-box; /* Garante que o padding não altere a largura */
+  }
+
+  /* Ajuste da Tabela de Histórico de Uso */
+  .usage-history {
+    width: 100%; /* Ajusta a largura da tabela */
+    margin-top: 20px;
+    padding: 0 10px; /* Adiciona espaçamento nas laterais */
+    box-sizing: border-box; /* Garante que o padding não altere a largura */
+  }
+
+  /* Ajuste do Título */
+  .dashboard-title {
+    font-size: 1.5rem; /* Ajusta o tamanho do título para mobile */
+    padding: 0 10px; /* Adiciona espaçamento nas laterais */
+    box-sizing: border-box;
+  }
+}
+
+/* Estilos para a página de gerenciamento */
+.manage-container {
+  max-width: 1200px;
+  margin: 100px auto;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  width: 100%; /* Garantir que o container ocupe 100% da largura disponível */
+  box-sizing: border-box; /* Para garantir que o padding não sobrecarregue a largura */
+}
+
+.manage-container h1 {
+  font-size: 2.5rem;
+  text-align: center;
+  color: #FFD700;
+  margin-bottom: 20px;
+}
+
+.manage-container .button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 1rem;
+  text-decoration: none;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+.manage-container table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.6);
+  overflow-x: auto; /* Permitir rolagem horizontal se necessário */
+}
+
+.manage-container table th,
+.manage-container table td {
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #444;
+}
+
+.manage-container table th {
+  background-color: #333;
+  color: #FFD700;
+  font-size: 1.2rem;
+}
+
+.manage-container table td img {
+  border-radius: 5px;
+  object-fit: cover;
+  max-width: 100%; /* Para garantir que as imagens se ajustem ao tamanho da célula */
+}
+
+.manage-container .alert-container {
+  margin-top: 20px;
+}
+
+.manage-container .alert {
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  font-size: 1rem;
+  color: #000;
+  text-align: center;
+}
+
+.manage-container .alert-success {
+  background-color: #4CAF50;
+}
+
+.manage-container .alert-danger {
+  background-color: #F44336;
+}
+
+.manage-container .alert-warning {
+  background-color: #FFC107;
+}
+
+.manage-container .alert-info {
+  background-color: #2196F3;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .manage-container {
+    margin: 20px; /* Reduzir a margem nas telas pequenas */
+    padding: 20px; /* Adiciona padding para garantir espaçamento nas bordas */
+    margin: 0 auto; /* Centraliza o conteúdo */
+    width: 100%;
+    box-sizing: border-box; /* Garante que padding não altere a largura */
+    margin: 100px auto; /* Aumenta a margem superior para afastar mais do header */
+    min-height: calc(100vh - 100px); /* Garante que o conteúdo ocupe o restante da altura da página após o header */
+  }
+
+  .manage-container h1 {
+    font-size: 1.8rem; /* Reduzir o tamanho da fonte do título */
+  }
+
+  .manage-container table {
+    width: 100%;
+    font-size: 0.9rem; /* Ajuste do tamanho da fonte */
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+
+  .manage-container table th,
+  .manage-container table td {
+    display: block; /* Faz com que cada célula se torne um bloco */
+    width: 100%; /* As células ocupam 100% da largura disponível */
+    padding: 8px; /* Ajuste no padding */
+    box-sizing: border-box; /* Para que o padding não ultrapasse a largura da célula */
+  }
+
+  .manage-container table th {
+    text-align: left; /* Alinhar o título à esquerda */
+    background-color: #333;
+    color: #FFD700;
+    font-size: 1.2rem;
+  }
+
+  .manage-container table td {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    margin-bottom: 10px; /* Espaçamento entre as "linhas" */
+  }
+
+  .manage-container .button {
+    font-size: 0.9rem; /* Ajuste do tamanho da fonte */
+    padding: 8px 15px; /* Ajuste no padding */
+    margin: 10px auto; /* Centralizar os botões */
+    display: inline-block;
+  }
+
+  .manage-container .alert {
+    font-size: 0.9rem;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+  .manage-container .alert {
+    font-size: 0.9rem; /* Ajustar o tamanho da fonte dos alertas */
+    padding: 10px; /* Ajustar o padding nos alertas */
+  }
+
+@media (max-width: 480px) {
+  .manage-container h1 {
+    font-size: 1.5rem; /* Tamanho menor para dispositivos muito pequenos */
+  }
+
+  .manage-container .button {
+    font-size: 0.8rem; /* Font-size ainda menor para botões */
+    padding: 7px 12px; /* Ajuste no padding */
+  }
+
+  .manage-container table th,
+  .manage-container table td {
+    font-size: 0.8rem; /* Font-size ainda menor para a tabela */
+  }
+
+  .manage-container .alert {
+    font-size: 0.8rem; /* Font-size menor para alertas */
+    padding: 8px; /* Menos padding nos alertas */
+  }
+}
+
+/* Estilo para o botão Excluir */
+.button-danger {
+  background-color: #d33;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-danger:hover {
+  background-color: #b02a2a;
+}
+
+/* Estilo para o botão Usar */
+.button-info {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-info:hover {
+  background-color: #0056b3;
+}
+
+/* Estilo para o botão Devolver */
+.button-success {
+  background-color: #28a745;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-success:hover {
+  background-color: #218838;
+}
+
+
+/* Botão Editar */
+.button-warning {
+  background-color: #ff9800; /* Cor de fundo */
+  color: #000; /* Cor do texto */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: Arial, sans-serif; /* Fonte do sistema ou Arial */
+  text-decoration: none; /* Remove o sublinhado do link */
+}
+
+.button-warning:hover {
+  background-color: #e68900; /* Cor de fundo ao passar o mouse */
+}
+
+.button-warning:focus {
+  outline: none; /* Remove o contorno ao focar */
+}
+
+/* Botão Excluir */
+.button-danger {
+  background-color: #d33;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 10px;
+  font-family: Arial, sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-danger:hover {
+  background-color: #b02a2a;
+}
+
+/* Botão Usar */
+.button-info {
+  background-color: #007bff; /* Cor de fundo */
+  color: #fff; /* Cor do texto */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 10px;
+  font-family: Arial, sans-serif; /* Fonte do sistema ou Arial */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none; /* Remove o sublinhado do link */
+}
+
+.button-info:hover {
+  background-color: #0056b3; /* Cor de fundo ao passar o mouse */
+}
+
+.button-info:focus {
+  outline: none; /* Remove o contorno ao focar */
+}
+
+
+/* Botão Devolver */
+.button-success {
+  background-color: #28a745; /* Cor de fundo */
+  color: #fff; /* Cor do texto */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 10px;
+  font-family: Arial, sans-serif; /* Fonte do sistema ou Arial */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none; /* Remove o sublinhado do link */
+}
+
+.button-success:hover {
+  background-color: #218838; /* Cor de fundo ao passar o mouse */
+}
+
+.button-success:focus {
+  outline: none; /* Remove o contorno ao focar */
+}
+
+/* Botão Adicionar Novo Item */
+.button-primary {
+  background-color: #ffc107; /* Cor de fundo */
+  color: #000; /* Cor do texto */
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+  display: inline-block;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-family: Arial, sans-serif; /* Fonte do sistema ou Arial */
+  text-decoration: none; /* Remove o sublinhado do link */
+}
+
+.button-primary:hover {
+  background-color: #e0a800; /* Cor de fundo ao passar o mouse */
+  transform: scale(1.05); /* Efeito de aumento */
+}
+
+.button-primary:focus {
+  outline: none; /* Remove o contorno ao focar */
+}
+
+/* Estilos para a página de adicionar novo item */
+.add-item-container {
+  max-width: 800px;
+  margin: 100px auto;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  width: 100%; /* Garante que o container ocupe 100% da largura disponível */
+}
+
+.add-item-container h1 {
+  font-size: 2.5rem;
+  text-align: center;
+  color: #FFD700;
+  margin-bottom: 20px;
+}
+
+.add-item-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.add-item-container label {
+  font-size: 1rem;
+  color: #fff;
+}
+
+.add-item-container input,
+.add-item-container select {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #444;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  width: 100%; /* Garante que os inputs ocupem toda a largura do container */
+  box-sizing: border-box; /* Para garantir que o padding seja incluído no cálculo da largura */
+}
+
+.add-item-container button {
+  font-size: 1.1rem;
+  padding: 12px 20px;
+  background-color: #ffc107; /* Botão amarelo */
+  color: #000;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+.add-item-container button:hover {
+  background-color: #e0a800;
+}
+
+.add-item-container .button {
+  margin-top: 15px;
+  font-size: 1rem;
+  background-color: #ffc107; /* Botão amarelo */
+  color: #000;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  text-align: center;
+  display: inline-block;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+}
+
+.add-item-container .button:hover {
+  background-color: #e0a800;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .add-item-container {
+    padding: 0 15px; /* Manter o espaçamento lateral de 15px */
+    margin: 50px 15px; /* Aumenta um pouco o espaçamento lateral */
+    margin: 0 auto; /* Centraliza o conteúdo */
+    width: 100%;
+    box-sizing: border-box; /* Garante que padding não altere a largura */
+    margin: 70px auto; /* Aumenta a margem superior para afastar mais do header */
+    min-height: calc(100vh - 100px); /* Garante que o conteúdo ocupe o restante da altura da página após o header */
+  }
+
+    .add-item-container h1 {
+    font-size: 1.8rem; /* Ajuste do tamanho da fonte do título */
+  }
+
+  .add-item-container form {
+    gap: 10px; /* Reduz o espaço entre os campos do formulário */
+  }
+
+  .add-item-container input,
+  .add-item-container select,
+  .add-item-container button {
+    font-size: 0.9rem; /* Ajusta o tamanho da fonte */
+    padding: 8px 12px; /* Ajusta o padding para melhor visualização */
+  }
+
+  /* Garante que os campos não ultrapassem o container */
+  .add-item-container input,
+  .add-item-container select {
+    width: 100%; /* Garante que os inputs não ultrapassem o container */
+  }
+}
+
+/* Estilos para a página de edição de item */
+.edit-item-container {
+  padding: 20px;
+  margin: 50px auto;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  max-width: 800px;
+  box-sizing: border-box;
+  margin-top: 70px; /* Espaço adicional para afastar mais do header */
+  margin-bottom: 120px;
+}
+
+/* Título da página */
+.edit-item-container h1 {
+  font-size: 2.5rem;
+  text-align: center;
+  color: #FFD700;
+  margin-bottom: 20px;
+}
+
+/* Estilo dos labels e inputs */
+.edit-item-container label {
+  font-size: 1.1rem;
+  color: #fff;
+  display: block;
+  margin: 10px 0 5px;
+}
+
+.edit-item-container input,
+.edit-item-container select {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #444;
+  background-color: #333;
+  color: #fff;
+  box-sizing: border-box; /* Garantir que o padding não altere a largura */
+}
+
+.edit-item-container input:focus,
+.edit-item-container select:focus {
+  outline: none;
+  border-color: #FFD700;
+}
+
+/* Estilo dos botões */
+.edit-item-container .button {
+  display: inline-block;
+  padding: 12px 60px;
+  font-size: 1rem;
+  color: #000;
+  background-color: #FFC107;
+  border-radius: 5px;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 15px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;  
+}
+
+.edit-item-container .button:hover {
+  background-color: #e0a800;
+}
+
+
+/* Estilos responsivos (para telas pequenas / mobile) */
+@media (max-width: 768px) {
+  .edit-item-container {
+    padding: 0 15px; /* Manter o espaçamento lateral de 15px */
+    margin: 50px 15px; /* Aumenta um pouco o espaçamento lateral */
+    margin: 0 auto; /* Centraliza o conteúdo */
+    width: 100%;
+    box-sizing: border-box; /* Garante que padding não altere a largura */
+    margin: 60px auto; /* Aumenta a margem superior para afastar mais do header */
+    min-height: calc(100vh - 100px); /* Garante que o conteúdo ocupe o restante da altura da página após o header */
+  }
+
+  .edit-item-container h1 {
+    font-size: 2rem;
+  }
+
+  .edit-item-container input,
+  .edit-item-container select {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  .edit-item-container .button {
+    font-size: 0.9rem;
+    padding: 10px 18px;
+  }
+}
+
+/* Estilos para a página de devolução */
+.devolver-container {
+  max-width: 800px;
+  margin: 150px auto; /* Aumenta a margem superior para criar distância do header */
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+}
+
+.devolver-container h1.title {
+  font-size: 2.5rem;
+  text-align: center;
+  color: #FFD700;
+  margin-bottom: 20px;
+}
+
+.devolver-container .field {
+  margin-bottom: 20px;
+}
+
+.devolver-container .label {
+  font-size: 1.1rem;
+  color: #FFD700;
+}
+
+.devolver-container .control {
+  margin-top: 10px;
+}
+
+.devolver-container .textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #444;
+  background-color: #333;
+  color: #fff;
+  box-sizing: border-box; /* Garantir que a caixa de texto não vaze */
+}
+
+.devolver-container .button {
+  background-color: #ff9800;
+  color: #000;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.devolver-container .button:hover {
+  background-color: #e68900;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .devolver-container {
+    padding: 15px;
+    margin: 120px auto; /* Aumenta a margem superior para afastar mais do header */
+  }
+
+  .devolver-container h1.title {
+    font-size: 2rem; /* Reduzir o tamanho do título no mobile */
+  }
+
+  .devolver-container .label,
+  .devolver-container .button {
+    font-size: 1rem; /* Ajustar o tamanho da fonte nos campos e botão */
+  }
+
+  .devolver-container .textarea {
+    font-size: 0.9rem; /* Ajustar o tamanho da fonte da área de texto */
+  }
+}
+
+/* Estilos para a página de uso de equipamento */
+.usar-container {
+  max-width: 800px;
+  margin: 70px auto; /* Distância do header */
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+}
+
+.usar-container h1.title {
+  font-size: 2.5rem;
+  text-align: center;
+  color: #FFD700;
+  margin-bottom: 20px;
+}
+
+.usar-container .field {
+  margin-bottom: 20px;
+}
+
+.usar-container .label {
+  font-size: 1.1rem;
+  color: #FFD700;
+}
+
+.usar-container .control {
+  margin-top: 10px;
+}
+
+.usar-container .input {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #444;
+  background-color: #333;
+  color: #fff;
+  box-sizing: border-box;
+}
+
+.usar-container .button {
+  background-color: #ff9800;
+  color: #000;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.usar-container .button:hover {
+  background-color: #e68900;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .usar-container {
+    padding: 15px;
+    margin: 70px 15px;
+  }
+
+  .usar-container h1.title {
+    font-size: 2rem; /* Reduzir o tamanho do título no mobile */
+  }
+
+  .usar-container .label,
+  .usar-container .button {
+    font-size: 1rem; /* Ajustar o tamanho da fonte nos campos e botão */
+  }
+
+  .usar-container .input {
+    font-size: 0.9rem; /* Ajustar o tamanho da fonte dos inputs */
+  }
+}
+
+
+
+/* Estilos para a página de Gestão de Usuários */
+.container.is-fluid {
+  max-width: 1000px;
+  margin: 70px auto; /* Distância do header */
+  padding: 30px;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+}
+
+.container.is-fluid h3.title, .container.is-fluid h4.subtitle {
+  font-size: 2.5rem;
+  text-align: center;
+  color: #FFD700;
+  margin-bottom: 20px;
+}
+
+.container.is-fluid .box {
+  background-color: rgba(31, 31, 31, 0.9);
+  color: #fff;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  margin-bottom: 30px;
+}
+
+.container.is-fluid .box h4.subtitle {
+  font-size: 2rem;
+  text-align: center;
+  color: #FFCC00;
+  margin-bottom: 20px;
+}
+
+.container.is-fluid .table.is-fullwidth {
+  width: 100%;
+  background-color: #2a2a2a;
+  color: #fff;
+  border-collapse: collapse;
+  margin-bottom: 30px;
+}
+
+.container.is-fluid .table.is-fullwidth th,
+.container.is-fluid .table.is-fullwidth td {
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid #444;
+}
+
+.container.is-fluid .table.is-fullwidth th {
+  background-color: #333;
+  font-weight: bold;
+  color: #FFCC00;
+}
+
+.container.is-fluid .table.is-fullwidth td {
+  background-color: #2a2a2a;
+}
+
+/* Reduzir tamanho dos botões */
+.container.is-fluid .button {
+  background-color: #FF9800;
+  color: #000;
+  padding: 5px 20px;  /* Menor padding */
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;  /* Reduzir fonte */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-family: Arial, sans-serif; /* Fonte do sistema ou Arial */
+  text-decoration: none; /* Remove o sublinhado do link */
+}
+
+.container.is-fluid .button:hover {
+  background-color: #e68900;
+}
+
+.container.is-fluid .input.is-large, .container.is-fluid .select.is-large {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #444;
+  background-color: #333;
+  color: #fff;
+  box-sizing: border-box;
+  margin-bottom: 20px; /* Espaço entre os inputs */
+}
+
+.container.is-fluid .label {
+  font-size: 1.8rem;
+  color: #FFD700;
+  margin-bottom: 5px;  /* Pequeno espaçamento abaixo da label */
+}
+
+.container.is-fluid .notification.is-danger {
+  background-color: rgba(81, 255, 12, 0.8);
+  color: #fff;
+  text-align: center;
+  font-size: 1rem;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+.container.is-fluid .tag.is-success {
+  background-color: #28a745;
+}
+
+.container.is-fluid .tag.is-danger {
+  background-color: #dc3545;
+}
+
+/* Estilo para o select de tipo de usuário */
+.container.is-fluid .field .select {
+  width: 100%;
+  margin-top: 15px;
+}
+
+.container.is-fluid .select select {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #444;
+  background-color: #333;
+  color: #fff;
+  box-sizing: border-box;
+  appearance: none; /* Remove o estilo padrão de alguns navegadores */
+}
+
+.container.is-fluid .select select:focus {
+  outline: none;
+  border-color: #ff9800; /* Cor da borda quando o select estiver focado */
+  box-shadow: 0 0 5px rgba(255, 152, 0, 0.6); /* Efeito de sombra no foco */
+}
+
+
+/* Ajustes para torná-lo responsivo */
+@media (max-width: 768px) {
+  .container.is-fluid {
+    padding: 20px;
+    margin: 70px 15px;
+  }
+
+  .container.is-fluid h3.title, .container.is-fluid h4.subtitle {
+    font-size: 2rem; /* Reduzir o tamanho do título no mobile */
+  }
+
+  .container.is-fluid .input.is-large, .container.is-fluid .select.is-large, .container.is-fluid .button {
+    font-size: 1rem; /* Ajustar o tamanho da fonte nos campos e botão */
+  }
+
+  .container.is-fluid .table.is-fullwidth th, .container.is-fluid .table.is-fullwidth td {
+    font-size: 0.9rem; /* Ajustar o tamanho da fonte nas células da tabela */
+  }
+
+  /* Responsividade da tabela: coluna fica em linha */
+  .container.is-fluid .table.is-fullwidth td,
+  .container.is-fluid .table.is-fullwidth th {
+    display: block;
+    width: 100%;
+  }
+
+  .container.is-fluid .table.is-fullwidth td:before {
+    content: attr(data-label);
+    font-weight: bold;
+    margin-right: 10px;
+  }
+
+  .container.is-fluid .table.is-fullwidth td {
+    border: none;
+    background-color: #333;
+    margin-bottom: 10px;
+  }
+}
+
+
+/* Estilos para a página de edição de usuário */
+.editar-container {
+  max-width: 800px;
+  margin: 70px auto; /* Distância do header */
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+}
+
+.editar-container h3.title {
+  font-size: 2.5rem;
+  text-align: center;
+  color: #FFD700;
+  margin-bottom: 20px;
+}
+
+.editar-container .field {
+  margin-bottom: 20px;
+}
+
+.editar-container .label {
+  font-size: 1.1rem;
+  color: #FFD700;
+}
+
+.editar-container .control {
+  margin-top: 10px;
+}
+
+.editar-container .input,
+.editar-container .select select {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #444;
+  background-color: #333;
+  color: #fff;
+  box-sizing: border-box;
+}
+
+.editar-container .input:focus,
+.editar-container .select select:focus {
+  outline: none;
+  border-color: #ff9800;
+  box-shadow: 0 0 5px rgba(255, 152, 0, 0.6);
+}
+
+.editar-container .button {
+  background-color: #ff9800;
+  color: #000;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: Arial, sans-serif; /* Fonte do sistema ou Arial */
+  text-decoration: none; /* Remove o sublinhado do link */
+}
+
+.editar-container .button:hover {
+  background-color: #e68900;
+}
+
+.editar-container .button.is-light {
+  background-color: #333;
+  color: #FFD700;
+  padding: 12px 25px;
+}
+
+.editar-container .button.is-light:hover {
+  background-color: #444;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .editar-container {
+    padding: 15px;
+    margin: 70px 15px;
+  }
+
+  .editar-container h3.title {
+    font-size: 2rem; /* Reduzir o tamanho do título no mobile */
+  }
+
+  .editar-container .label,
+  .editar-container .button {
+    font-size: 1rem; /* Ajustar o tamanho da fonte nos campos e botão */
+  }
+
+  .editar-container .input {
+    font-size: 0.9rem; /* Ajustar o tamanho da fonte dos inputs */
+  }
+}

@@ -41,7 +41,7 @@ def signup_post():
     user = User.query.filter_by(email=email).first()
     if user:
         flash('Email já cadastrado.')
-        return redirect(url_for('auth.signup'))
+        return redirect(url_for('users.list_users'))
 
     new_user = User(
         email=email,
@@ -54,7 +54,7 @@ def signup_post():
     db.session.commit()
 
     flash('Usuário criado com sucesso.')
-    return redirect(url_for('auth.login'))
+    return redirect(url_for('users.list_users'))
 
 
 @auth.route('/login', methods=['POST'])
@@ -68,12 +68,12 @@ def login_post():
     # check if the user actually exists
     # take the user-supplied password, hash it, and compare it to the hashed password in the database
     if not user or not check_password_hash(user.password, password):
-        flash('Please check your login details and try again.')
+        flash('Por favor, verifique suas credenciais de login e tente novamente.')
         return redirect(url_for('auth.login')) # if the user doesn't exist or password is wrong, reload the page
 
     # if the above check passes, then we know the user has the right credentials
     login_user(user, remember=remember)
-    return redirect(url_for('main.profile'))
+    return redirect(url_for('main.index'))
 
 @auth.route('/edit_user/<int:user_id>', methods=['GET', 'POST'])
 @login_required

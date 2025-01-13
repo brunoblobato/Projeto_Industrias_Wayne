@@ -1,35 +1,29 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Editar Item</h1>
-    <form action="{{ url_for('items.edit_item', item_id=item.id) }}" method="POST">
-        <label for="name">Nome:</label>
-        <input type="text" name="name" id="name" value="{{ item.name }}" required>
+    <div class="edit-item-container">
+        <h1>Editar Item</h1>
+        <form action="{{ url_for('items.edit_item', item_id=item.id) }}" method="POST">
+            <label for="name">Nome:</label>
+            <input type="text" name="name" id="name" value="{{ item.name }}" required>
 
-        <label for="category">Categoria:</label>
-        <select name="category" id="category">
-            <option value="equipamentos" {% if item.category == 'equipamentos' %}selected{% endif %}>Equipamentos</option>
-            <option value="veiculos" {% if item.category == 'veiculos' %}selected{% endif %}>Veículos</option>
-            <option value="dispositivos_de_seguranca" {% if item.category == 'dispositivos_de_seguranca' %}selected{% endif %}>Dispositivos de Segurança</option>
-        </select>
+            <label for="category">Categoria:</label>
+            <select name="category" id="category">
+                <option value="equipamentos" {% if item.category == 'equipamentos' %}selected{% endif %}>Equipamentos</option>
+                <option value="veiculos" {% if item.category == 'veiculos' %}selected{% endif %}>Veículos</option>
+                <option value="dispositivos_de_seguranca" {% if item.category == 'dispositivos_de_seguranca' %}selected{% endif %}>Dispositivos de Segurança</option>
+            </select>
 
-        <label for="mission">Missão:</label>
-        <select name="mission" id="mission">
-            <option value="cacada" {% if item.misssion == 'cacada' %}selected{% endif %}>Caçada ao Charada</option>
-            <option value="roubo" {% if item.misssion == 'roubo' %}selected{% endif %}>Roubo no Museu de Gotham</option>
-            <option value="combater" {% if item.mission == 'combater' %}selected{% endif %}>Combater um crime</option>
-        </select>
+            <label for="quantity">Quantidade:</label>
+            <input type="number" name="quantity" id="quantity" value="{{ item.quantity }}" min="1" required>
+            
+            <label for="description">Descrição:</label>
+            <input type="text" name="description" id="description" value="{{ item.description }}" required>
 
-        <label for="quantity">Quantidade:</label>
-        <input type="number" name="quantity" id="quantity" value="{{ item.quantity }}" min="1" required>
-        
-        <label for="description">Descrição:</label>
-        <input type="text" name="description" id="description" value="{{ item.description }}" required>
+            <label for="image_url">URL da Imagem:</label>
+            <input type="text" name="image_url" id="image_url" value="{{ item.image_url }}">
 
-
-        <label for="image_url">URL da Imagem:</label>
-        <input type="text" name="image_url" id="image_url" value="{{ item.image_url }}">
-
-        <button type="submit" class="button is-primary">Salvar</button>
-    </form>
-    <a href="{{ url_for('items.manage_items') }}" class="button">Voltar</a>
+            <button type="submit" class="button button-save">Salvar</button>
+        </form>
+        <a href="{{ url_for('items.manage_items') }}" class="button button-back">Voltar</a>
+    </div>
 {% endblock %}

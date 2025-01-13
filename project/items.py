@@ -179,13 +179,13 @@ def use_equipment(item_id):
                                alert_type="error")
 
     if request.method == 'POST':
-        action = request.form['action']
         mission_name = request.form['mission_name']
         mission_description = request.form['mission_description']
         start_date = request.form['start_date']  # Data de início da missão
 
         # Corrigindo a conversão da data para incluir o 'T'
         start_date = datetime.strptime(start_date, '%Y-%m-%dT%H:%M')
+        
 
         # Criando a missão
         new_mission = Mission(
@@ -202,7 +202,6 @@ def use_equipment(item_id):
         usage = EquipmentUsage(
             equipment_id=item.id,
             user_id=current_user.id,
-            action=action,
             status="Em uso",
             usage_date=datetime.utcnow(),
             mission_id=new_mission.id  # Relacionando o uso à missão
@@ -215,17 +214,13 @@ def use_equipment(item_id):
             item.status = "Em uso"  # Se não há mais unidades disponíveis, o item está totalmente em uso
         db.session.commit()
 
+        flash('Equipamento Reservado com sucesso!', 'success') 
+
         return redirect(url_for('items.manage_items'))
 
     return render_template('use_equipment.html', item=item)
 
 
-
-from datetime import datetime
-from flask import Blueprint, render_template, request, redirect, url_for, flash
-from flask_login import login_required, current_user
-from .models import Equipment, EquipmentUsage, Mission
-from . import db
 
 @items.route('/equipamento/devolver/<int:item_id>', methods=['GET', 'POST'])
 @login_required

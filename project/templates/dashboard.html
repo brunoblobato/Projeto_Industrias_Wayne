@@ -1,55 +1,60 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class="title">Dashboard de Gestão de Equipamentos</h1>
+<!-- Título principal -->
+<div class="dashboard-container">
+    <h1 class="dashboard-title">Seja bem-vindo, {{ name }}!</h1>
+    <h2 class="dashboard-title">Dashboard de Gestão de Equipamentos</h2>
 
-<div class="dashboard-summary">
-    <div class="stat-box">
-        <h3>Total de Itens</h3>
-        <p>{{ total_items }}</p>
+    <!-- Resumo de Estatísticas -->
+    <div class="dashboard-summary">
+        <div class="stat-box">
+            <h3>Total de Itens</h3>
+            <p>{{ total_items }}</p>
+        </div>
+
+        <div class="stat-box">
+            <h3>Itens em Uso</h3>
+            <p>{{ used_items }}</p>
+        </div>
     </div>
 
-    <div class="stat-box">
-        <h3>Itens em Uso</h3>
-        <p>{{ used_items }}</p>
+    <!-- Gráfico de Quantidade de Itens -->
+    <div class="chart-container">
+        <h3>Quantidade de Itens (Disponíveis x Em Uso)</h3>
+        <canvas id="itemStatusChart"></canvas>
     </div>
-</div>
 
-<!-- Gráfico de Quantidade de Itens -->
-<div class="chart-container">
-    <h3>Quantidade de Itens (Disponíveis x Em Uso)</h3>
-    <canvas id="itemStatusChart"></canvas>
-</div>
+    <!-- Histórico de Uso -->
+    <div class="usage-history">
+        <h3>Histórico de Uso Recentes</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Equipamento</th>
+                    <th>Usuário</th>
+                    <th>Data de Uso</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for usage in usage_history %}
+                <tr>
+                    <td>{{ usage.equipment.name }}</td>
+                    <td>{{ usage.user.name }}</td>
+                    <td>{{ usage.usage_date.strftime('%d/%m/%Y %H:%M:%S') }}</td>
+                    <td>{{ usage.action }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-<!-- Histórico de Uso -->
-<div class="usage-history">
-    <h3>Histórico de Uso Recentes</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Equipamento</th>
-                <th>Usuário</th>
-                <th>Data de Uso</th>
-                <th>Ação</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for usage in usage_history %}
-            <tr>
-                <td>{{ usage.equipment.name }}</td>
-                <td>{{ usage.user.name }}</td>
-                <td>{{ usage.usage_date.strftime('%d/%m/%Y %H:%M:%S') }}</td>
-                <td>{{ usage.action }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
-
-<!-- Gráfico de Tempo de Uso -->
-<div class="chart-container">
-    <h3>Tempo de Uso por Equipamento</h3>
-    <canvas id="usageTimeChart"></canvas>
+    <!-- Gráfico de Tempo de Uso -->
+    <div class="chart-container">
+        <h3>Tempo de Uso por Equipamento</h3>
+        <canvas id="usageTimeChart"></canvas>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -85,5 +90,4 @@
         data: usageTimeData,
     });
 </script>
-
 {% endblock %}

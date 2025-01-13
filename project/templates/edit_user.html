@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="column is-6 is-offset-3">
+<div class="editar-container">
     <h3 class="title">Editar Usuário</h3>
     <form method="POST" action="{{ url_for('users.edit_user', user_id=user.id) }}">
         <div class="field">
@@ -30,7 +30,7 @@
             <div class="field">
                 <label class="label">Papel</label>
                 <div class="control">
-                    <div class="select is-fullwidth">
+                    <div class="select">
                         <select name="role">
                             <option value="employee" {% if user.role == 'employee' %}selected{% endif %}>Funcionário</option>
                             <option value="manager" {% if user.role == 'manager' %}selected{% endif %}>Gerente</option>
@@ -41,6 +41,7 @@
             </div>
             {% endif %}
         {% endif %}
+        
         <button class="button is-primary">Salvar Alterações</button>
         <a href="{{ url_for('users.list_users') }}" class="button is-light">Cancelar</a>
     </form>

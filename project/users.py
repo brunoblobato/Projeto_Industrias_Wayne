@@ -58,12 +58,6 @@ def delete_user(user_id):
         flash('Não é permitido excluir o administrador principal.')
         return redirect(url_for('users.list_users'))
 
-    # Verificação de confirmação de exclusão para outros usuários
-    confirmation = request.form.get('confirm')
-    if confirmation != 'yes':
-        flash('Você precisa confirmar a exclusão do usuário.')
-        return redirect(url_for('users.list_users'))
-
     db.session.delete(user)
     db.session.commit()
     flash('Usuário excluído com sucesso.')

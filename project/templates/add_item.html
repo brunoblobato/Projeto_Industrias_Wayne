@@ -1,34 +1,29 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Adicionar Novo Item</h1>
-    <form action="{{ url_for('items.add_item') }}" method="POST">
-        <label for="name">Nome:</label>
-        <input type="text" name="name" id="name" required>
+    <div class="add-item-container">
+        <h1>Adicionar Novo Item</h1>
+        <form action="{{ url_for('items.add_item') }}" method="POST">
+            <label for="name">Nome:</label>
+            <input type="text" name="name" id="name" required>
 
-        <label for="category">Categoria:</label>
-        <select name="category" id="category">
-            <option value="equipamentos">Equipamentos</option>
-            <option value="veiculos">Veículos</option>
-            <option value="dispositivos_de_seguranca">Dispositivos de Segurança</option>
-        </select>
+            <label for="category">Categoria:</label>
+            <select name="category" id="category">
+                <option value="equipamentos">Equipamentos</option>
+                <option value="veiculos">Veículos</option>
+                <option value="dispositivos_de_seguranca">Dispositivos de Segurança</option>
+            </select>
 
-        <label for="mission">Missão:</label>
-        <select name="mission" id="mission">
-            <option value="cacada">Caçada ao Charada</option>
-            <option value="roubo">Roubo no Museu de Gotham</option>
-            <option value="combater">Combater um crime</option>
-        </select>
+            <label for="quantity">Quantidade:</label>
+            <input type="number" name="quantity" id="quantity" min="1" required>
 
-        <label for="quantity">Quantidade:</label>
-        <input type="number" name="quantity" id="quantity" min="1" required>
+            <label for="description">Descrição:</label>
+            <input type="text" name="description" id="description" required>
 
-        <label for="description">Descrição:</label>
-        <input type="text" name="description" id="description" required>
+            <label for="image_url">URL da Imagem (opcional):</label>
+            <input type="text" name="image_url" id="image_url">
 
-        <label for="image_url">URL da Imagem (opcional):</label>
-        <input type="text" name="image_url" id="image_url">
-
-        <button type="submit" class="button is-primary">Salvar</button>
-    </form>
-    <a href="{{ url_for('items.manage_items') }}" class="button">Voltar</a>
+            <button type="submit" class="button">Salvar</button>
+        </form>
+        <a href="{{ url_for('items.manage_items') }}" class="button">Voltar</a>
+    </div>
 {% endblock %}

@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template
 from .models import Equipment, Mission, EquipmentUsage, User
+from flask_login import login_required
 from . import db
 from datetime import datetime
 
@@ -7,6 +8,7 @@ from datetime import datetime
 dashboards = Blueprint('dashboards', __name__)
 
 @dashboards.route('/dashboard')
+@login_required
 def dashboard():
     # Dados para o Dashboard
     total_items = Equipment.query.count()

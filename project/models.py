@@ -44,7 +44,6 @@ class EquipmentUsage(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     equipment_id = db.Column(db.Integer, db.ForeignKey('equipment.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    action = db.Column(db.String(255), nullable=False)
     status = db.Column(db.String(50), nullable=False)
     usage_date = db.Column(db.DateTime, default=datetime.utcnow)
     mission_id = db.Column(db.Integer, db.ForeignKey('mission.id'), nullable=True)
@@ -64,7 +63,7 @@ class EquipmentUsage(db.Model):
 class Mission(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(150), nullable=False)
-    description = db.Column(db.Text, nullable=True)
+    description = db.Column(db.String(300), nullable=True)
     status = db.Column(db.String(50), nullable=False, default="Ativa")
     start_date = db.Column(db.DateTime, default=datetime.utcnow)
     end_date = db.Column(db.DateTime, nullable=True)  # Data de encerramento da missão

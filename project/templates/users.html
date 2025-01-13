@@ -1,29 +1,34 @@
-{% extends "base.html" %} {% block content %}
-<div class="column is-8 is-offset-2">
-  <h3 class="title">Gestão de Usuários</h3>
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container is-fluid">
+  <h3 class="title has-text-centered has-text-white">Gestão de Usuários</h3>
+  
+  <!-- Exibindo mensagem de erro, se houver -->
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="notification is-danger has-text-centered">
+        {{ messages[0] }}.
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <!-- Listagem de Usuários -->
   <div class="box">
-    {% with messages = get_flashed_messages() %} {% if messages %}
-    <div class="notification is-danger">
-      {{ messages[0] }}.
-      <!-- # Link de redirecionamento, edite a seguir: Go to <a href="{{ url_for('auth.login') }}">login page</a>. -->
-    </div>
-    {% endif %} {% endwith %}
-    <!-- Listagem de Usuários -->
-    <div class="box">
-      <h4 class="subtitle">Lista de Usuários</h4>
-      <table class="table is-fullwidth">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Papel</th>
-            <th>Status</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for user in users %}
+    <h4 class="subtitle has-text-centered">Lista de Usuários</h4>
+    <table class="table is-fullwidth">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Email</th>
+          <th>Papel</th>
+          <th>Status</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
           <tr>
             <td>{{ user.id }}</td>
             <td>{{ user.name }}</td>
@@ -31,111 +36,71 @@
             <td>{{ user.role }}</td>
             <td>
               {% if user.is_active %}
-              <span class="tag is-success">Ativo</span>
+                <span class="tag is-success">Ativo</span>
               {% else %}
-              <span class="tag is-danger">Inativo</span>
+                <span class="tag is-danger">Inativo</span>
               {% endif %}
             </td>
             <td>
-              <a
-                href="{{ url_for('users.edit_user', user_id=user.id) }}"
-                class="button is-small is-warning"
-                >Editar</a
-              >
-              {% if current_user.is_authenticated and current_user.role ==
-              'admin' %} {% if user.email != 'admin@admin.com' %}
-              <form
-                action="{{ url_for('users.toggle_user_status', user_id=user.id) }}"
-                method="POST"
-                style="display: inline"
-              >
-                <button class="button is-small is-info">
-                  {% if user.is_active %}Desativar{% else %}Ativar{% endif %}
-                </button>
-              </form>
-              <form
-                id="delete-user-form-{{ user.id }}"
-                action="{{ url_for('users.delete_user', user_id=user.id) }}"
-                method="POST"
-                style="display: inline"
-              >
-                <button
-                  type="button"
-                  class="button is-small is-danger"
-                  data-user-id="{{ user.id }}"
-                  onclick="showConfirmationModal(this)"
-                >
-                  Excluir
-                </button>
-              </form>
-              {% endif %} {% endif %}
+              <a href="{{ url_for('users.edit_user', user_id=user.id) }}" class="button is-small is-warning is-fullwidth">Editar</a>
+              {% if current_user.is_authenticated and current_user.role == 'admin' %}
+                {% if user.email != 'admin@admin.com' %}
+                  <form action="{{ url_for('users.toggle_user_status', user_id=user.id) }}" method="POST" style="display: inline">
+                    <button class="button is-small is-info is-fullwidth">
+                      {% if user.is_active %}Desativar{% else %}Ativar{% endif %}
+                    </button>
+                  </form>
+                  <form id="delete-user-form-{{ user.id }}" action="{{ url_for('users.delete_user', user_id=user.id) }}" method="POST" style="display: inline">
+                    <button type="button" class="button is-small is-danger" data-user-id="{{ user.id }}" onclick="showConfirmationModal(this)">Excluir</button>
+                  </form>
+                {% endif %}
+              {% endif %}
             </td>
           </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
 
-  <div class="column is-25 is-offset-0">
-    <h3 class="title">Sign Up</h3>
-    <div class="box">
-      <form method="POST" action="/signup">
-        <div class="field">
-          <div class="control">
-            <input
-              class="input is-large"
-              type="email"
-              name="email"
-              placeholder="Email"
-              autofocus=""
-            />
+  <!-- Cadastro de Usuários -->
+  <div class="box">
+    <h3 class="title has-text-centered">Cadastro de Usuários</h3>
+    <form method="POST" action="/signup">
+      <div class="field">
+        <div class="control">
+          <input class="input is-large" type="email" name="email" placeholder="E-mail" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <input class="input is-large" type="text" name="name" placeholder="Nome" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <input class="input is-large" type="password" name="password" placeholder="Senha" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Tipo de usuário</label>
+        <div class="control">
+          <div class="select is-large is-fullwidth">
+            <select name="role">
+              <option value="employee">Funcionário</option>
+              <option value="manager">Gerente</option>
+              <option value="admin">Administrador</option>
+            </select>
           </div>
         </div>
+      </div>
 
-        <div class="field">
-          <div class="control">
-            <input
-              class="input is-large"
-              type="text"
-              name="name"
-              placeholder="Name"
-              autofocus=""
-            />
-          </div>
-        </div>
-
-        <div class="field">
-          <div class="control">
-            <input
-              class="input is-large"
-              type="password"
-              name="password"
-              placeholder="Password"
-            />
-          </div>
-        </div>
-
-        <!-- Campo para selecionar o papel (role) -->
-        <div class="field">
-          <label class="label">Tipo de usuário</label>
-          <div class="control">
-            <div class="select is-large is-fullwidth">
-              <select name="role">
-                <option value="employee">Funcionário</option>
-                <option value="manager">Gerente</option>
-                <option value="admin">Administrador</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <button class="button is-block is-info is-large is-fullwidth">
-          Sign Up
-        </button>
-      </form>
-    </div>
+      <button class="button is-block is-info is-large is-fullwidth">Cadastrar</button>
+    </form>
   </div>
+
   <script>
     function showConfirmationModal(button) {
       const userId = button.getAttribute("data-user-id");
@@ -151,13 +116,11 @@
         cancelButtonText: "Cancelar",
       }).then((result) => {
         if (result.isConfirmed) {
-          // Se confirmado, submete o formulário
           document.getElementById(`delete-user-form-${userId}`).submit();
         }
       });
-      return false; // Impede o envio imediato do formulário
+      return false;
     }
   </script>
-
-  {% endblock %}
 </div>
+{% endblock %}
